@@ -17,6 +17,7 @@ type Rider struct {
 	Class     Class     `gorm:"foreignkey:ClassID;association_foreignkey:ID"` // One-To-One relationship (has one)
 	ClassID   uint      //`gorm:"ForeignKey:id"`
 	Birthday  time.Time `gorm:"not null"`
+	// Addresses []Address `gorm:"foreignkey:RidersID"`
 	// Runs    []Run  `gorm:"ForeignKey:RiderID"`
 }
 
@@ -28,7 +29,9 @@ func (p Rider) Serialize() common.JSON {
 		"Lastname":  p.Lastname,
 		"Gender":    p.Gender,
 		"Mail":      p.Mail,
+		"Class":     p.Class,
 		"ClassID":   p.ClassID,
 		"Birthday":  p.Birthday,
+		// "Addresses": p.Addresses,
 	}
 }

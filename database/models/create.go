@@ -15,6 +15,11 @@ func Create(db *gorm.DB) {
 	// set up foreign keys
 	// db.Model(&Post{}).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
 
+	// db.Model(&Address{}).AddForeignKey("riders_id", "riders(id)", "CASCADE", "CASCADE")
+	// db.Model(&Rider{}).Related(&Address{})
+	// var adres models.Address
+	// db.Model(&Rider).Related(&adres, "Address")
+
 	c := []Class{
 		{Name: "Masster"},
 		{Name: "Junior"},
@@ -110,7 +115,7 @@ func Create(db *gorm.DB) {
 	// Db.Save(&c2)
 	// Db.Save(&c3)
 
-	rider := []Rider{
+	ri := []Rider{
 		{
 			Firstname: "John",
 			Lastname:  "Doe",
@@ -134,8 +139,8 @@ func Create(db *gorm.DB) {
 		},
 	}
 
-	for i := range rider {
-		if err := db.Save(&rider[i]).Error; err != nil {
+	for i := range ri {
+		if err := db.Save(&ri[i]).Error; err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -145,37 +150,37 @@ func Create(db *gorm.DB) {
 		{StartTime: time.Now(),
 			EndTime: time.Now(),
 			DNF:     false,
-			Riders:  rider[0],
+			Riders:  ri[0],
 			Stages:  s[0],
 		},
 		{StartTime: time.Now(),
 			EndTime: time.Now(),
 			DNF:     false,
-			Riders:  rider[1],
+			Riders:  ri[1],
 			Stages:  s[0],
 		},
 		{StartTime: time.Now(),
 			EndTime: time.Now(),
 			DNF:     false,
-			Riders:  rider[1],
+			Riders:  ri[1],
 			Stages:  s[1],
 		},
 		{StartTime: time.Now(),
 			EndTime: time.Now(),
 			DNF:     false,
-			Riders:  rider[0],
+			Riders:  ri[0],
 			Stages:  s[1],
 		},
 		{StartTime: time.Now(),
 			EndTime: time.Now(),
 			DNF:     false,
-			Riders:  rider[1],
+			Riders:  ri[1],
 			Stages:  s[2],
 		},
 		{StartTime: time.Now(),
 			EndTime: time.Now(),
 			DNF:     false,
-			Riders:  rider[0],
+			Riders:  ri[0],
 			Stages:  s[2],
 		},
 	}
@@ -199,6 +204,39 @@ func Create(db *gorm.DB) {
 
 	for i := range se {
 		if err := db.Save(&se[i]).Error; err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	address := []Address{
+		{
+			Street:       "De Weg",
+			StreetNumber: "1",
+			PostalCode:   "7777MM",
+			City:         "Venlo",
+			Country:      "Nederland",
+			Riders:       ri[0],
+		},
+		{
+			Street:       "De Straat",
+			StreetNumber: "66",
+			PostalCode:   "2487 GA",
+			City:         "Utrecht",
+			Country:      "NL",
+			Riders:       ri[1],
+		},
+		{
+			Street:       "De Straatweg",
+			StreetNumber: "65",
+			PostalCode:   "3456 FR",
+			City:         "Rotterdam",
+			Country:      "Netherlands",
+			Riders:       ri[2],
+		},
+	}
+
+	for i := range address {
+		if err := db.Save(&address[i]).Error; err != nil {
 			log.Fatal(err)
 		}
 	}

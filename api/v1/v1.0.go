@@ -2,6 +2,7 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/mc303/gin-rest-api-sample/api/v1/addresses"
 	"github.com/mc303/gin-rest-api-sample/api/v1/classes"
 	"github.com/mc303/gin-rest-api-sample/api/v1/events"
 	"github.com/mc303/gin-rest-api-sample/api/v1/riders"
@@ -26,5 +27,6 @@ func ApplyRoutes(r *gin.RouterGroup) {
 		events.ApplyRoutesEvents(v1)
 		runs.ApplyRoutesRuns(v1)
 		stages.ApplyRoutesStages(v1)
+		addresses.ApplyRoutesAddresses(v1)
 	}
 }
