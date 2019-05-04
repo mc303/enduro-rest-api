@@ -1,16 +1,16 @@
-package seasons
+package results
 
 import (
 	"github.com/gin-gonic/gin"
 )
 
 // ApplyRoutesClasses applies router to the gin Engine
-func ApplyRoutesSeasons(r *gin.RouterGroup) {
-	seasons := r.Group("/seasons")
+func ApplyRoutesResults(r *gin.RouterGroup) {
+	results := r.Group("/results")
 	{
 		// classes.POST("/", create) //middlewares.Authorized,
-		seasons.GET("/", list)
-		seasons.GET("/:id", read)
+		results.GET("/", list)
+		results.GET("/:id", read)
 		// classes.DELETE("/:id", remove) //middlewares.Authorized,
 		// classes.PATCH("/:id", update)  //middlewares.Authorized,
 	}

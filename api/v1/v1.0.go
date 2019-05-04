@@ -5,8 +5,11 @@ import (
 	"github.com/mc303/gin-rest-api-sample/api/v1/addresses"
 	"github.com/mc303/gin-rest-api-sample/api/v1/classes"
 	"github.com/mc303/gin-rest-api-sample/api/v1/events"
+	"github.com/mc303/gin-rest-api-sample/api/v1/registereds"
+	"github.com/mc303/gin-rest-api-sample/api/v1/results"
 	"github.com/mc303/gin-rest-api-sample/api/v1/riders"
 	"github.com/mc303/gin-rest-api-sample/api/v1/runs"
+	"github.com/mc303/gin-rest-api-sample/api/v1/seasons"
 	"github.com/mc303/gin-rest-api-sample/api/v1/stages"
 )
 
@@ -28,5 +31,9 @@ func ApplyRoutes(r *gin.RouterGroup) {
 		runs.ApplyRoutesRuns(v1)
 		stages.ApplyRoutesStages(v1)
 		addresses.ApplyRoutesAddresses(v1)
+		seasons.ApplyRoutesSeasons(v1)
+		registereds.ApplyRoutesRegistereds(v1)
+		results.ApplyRoutesResults(v1)
+
 	}
 }

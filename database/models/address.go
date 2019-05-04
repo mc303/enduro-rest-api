@@ -7,14 +7,17 @@ import (
 // Address data model
 type Address struct {
 	// gorm.Model
-	ID           uint
+	ID           uint `gorm:"primary_key"`
 	Street       string
 	StreetNumber string
 	PostalCode   string
 	City         string
 	Country      string
-	Riders       Rider `gorm:"ForeignKey:RidersID"`
+	PlusCode     string
+	Coordinate   string
 	RidersID     uint
+	EventsID     uint
+
 	// Runs    []Run  `gorm:"ForeignKey:RiderID;association_foreignkey:ID"`
 }
 
@@ -27,7 +30,9 @@ func (p Address) Serialize() common.JSON {
 		"PostalCode":   p.PostalCode,
 		"City":         p.City,
 		"Country":      p.Country,
-		"Riders":       p.Riders,
 		"RidersID":     p.RidersID,
+		"EventsID":     p.EventsID,
+		"PlusCode":     p.PlusCode,
+		"Coordinate":   p.Coordinate,
 	}
 }

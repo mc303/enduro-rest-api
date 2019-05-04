@@ -8,15 +8,18 @@ import (
 
 // Run data model
 type Run struct {
-	ID        uint
+	ID        uint `gorm:"primary_key"`
 	StartTime time.Time
 	EndTime   time.Time
 	DNF       bool
-	Riders    Rider `gorm:"foreignkey:RidersID;association_foreignkey:ID"`
-	RidersID  uint  // `gorm:"ForeignKey:id"`
-	Stages    Stage `gorm:"ForeignKey:StagesID;association_foreignkey:ID"`
+	RidersID  uint
+	EventsID  uint
 	StagesID  uint
 }
+
+// Riders    Rider `gorm:"foreignkey:RidersID;association_foreignkey:ID"`
+// 	Stages    Stage `gorm:"ForeignKey:StagesID;association_foreignkey:ID"`
+//	Events    Event `gorm:"ForeignKey:EventsID;association_foreignkey:ID"`
 
 // Serialize serializes post data
 func (p Run) Serialize() common.JSON {
@@ -25,9 +28,12 @@ func (p Run) Serialize() common.JSON {
 		"StartTime": p.StartTime,
 		"EndTime":   p.EndTime,
 		"DNF":       p.DNF,
-		"Riders":    p.Riders,
 		"RidersID":  p.RidersID,
-		"Stages":    p.Stages,
+		"EventsID":  p.EventsID,
 		"StagesID":  p.StagesID,
 	}
 }
+
+// "Stages":    p.Stages,
+// "Events":    p.Events,
+// "Riders":    p.Riders,

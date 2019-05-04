@@ -122,7 +122,6 @@ func update(c *gin.Context) {
 				Birthday:  newUser.Birthday,
 				Gender:    newUser.Gender,
 				Mail:      newUser.Mail,
-				ClassID:   newUser.ClassID,
 			}
 
 			// UPDATE users SET firstname='newUser.Firstname', lastname='newUser.Lastname' WHERE id = user.Id;
