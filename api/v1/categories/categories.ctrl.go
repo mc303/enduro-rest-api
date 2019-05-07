@@ -1,4 +1,4 @@
-package classes
+package categories
 
 import (
 	"github.com/gin-gonic/gin"
@@ -17,12 +17,12 @@ func list(c *gin.Context) {
 	cursor := c.Query("cursor")
 	recent := c.Query("recent")
 
-	var classes []models.Class
+	var categories []models.Category
 
 	// db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event)
 
 	if cursor == "" {
-		if err := db.Debug().Find(&classes).Error; err != nil {
+		if err := db.Debug().Find(&categories).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -31,17 +31,17 @@ func list(c *gin.Context) {
 		if recent == "1" {
 			condition = "id > ?"
 		}
-		if err := db.Debug().Where(condition, cursor).Find(&classes).Error; err != nil {
+		if err := db.Debug().Where(condition, cursor).Find(&categories).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
 	}
 
-	length := len(classes)
+	length := len(categories)
 	serialized := make([]JSON, length, length)
 
 	for i := 0; i < length; i++ {
-		serialized[i] = classes[i].Serialize()
+		serialized[i] = categories[i].Serialize()
 	}
 
 	c.JSON(200, serialized)
@@ -50,7 +50,7 @@ func list(c *gin.Context) {
 func read(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
-	var class models.Class
+	var class models.Category
 
 	// auto preloads the related model
 	// http://gorm.io/docs/preload.html#Auto-Preloading

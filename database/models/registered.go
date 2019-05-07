@@ -8,27 +8,26 @@ import (
 
 // Registered data model
 type Registered struct {
-	ID          uint `gorm:"primary_key"`
-	Date        time.Time
-	StartNumber string
-	RiderID     uint
-	EventID    uint
-	Events      Event `gorm:"ForeignKey:ID;association_foreignkey:EventsID"`
-	ClassID     uint
-	Classes     Class `gorm:"foreignkey:ID;association_foreignkey:ClassID"`
+	ID           int `gorm:"primary_key"`
+	Date         time.Time
+	StartNumber  string
+	RiderID      int
+	EventID      int
+	CategoriesID int
+	Categories   Category `gorm:"foreignkey:ID;association_foreignkey:CategoriesID"`
+	// Events      Event `gorm:"ForeignKey:ID;association_foreignkey:EventsID"`
+
 }
 
 // Serialize serializes post data
 func (p Registered) Serialize() common.JSON {
 	return common.JSON{
-		"ID":          p.ID,
-		"Date":        p.Date,
-		"StartNumber": p.StartNumber,
-		"RidersID":    p.RidersID,
-		"Riders":      p.Riders,
-		"EventsID":    p.EventsID,
-		"Events":      p.Events,
-		"ClassID":     p.ClassID,
-		"Class":       p.Class,
+		"ID":           p.ID,
+		"Date":         p.Date,
+		"StartNumber":  p.StartNumber,
+		"RiderID":      p.RiderID,
+		"EventID":      p.EventID,
+		"CategoriesID": p.CategoriesID,
+		"Categories":   p.Categories,
 	}
 }

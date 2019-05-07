@@ -8,11 +8,12 @@ import (
 
 // Result data model
 type Result struct {
-	ID        uint `gorm:"primary_key"`
+	ID        int `gorm:"primary_key"`
 	TotalTime time.Time
-	Place     uint
-	RiderID   uint
-	EventID   uint
+	Place     int
+	RiderID   int
+	EventID   int
+	StageID   int
 	// Events    Event `gorm:"ForeignKey:ID;association_foreignkey:EventsID"`
 }
 

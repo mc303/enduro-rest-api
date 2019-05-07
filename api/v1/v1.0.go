@@ -3,13 +3,12 @@ package v1
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/mc303/gin-rest-api-sample/api/v1/addresses"
-	"github.com/mc303/gin-rest-api-sample/api/v1/classes"
+	"github.com/mc303/gin-rest-api-sample/api/v1/categories"
 	"github.com/mc303/gin-rest-api-sample/api/v1/events"
 	"github.com/mc303/gin-rest-api-sample/api/v1/registereds"
 	"github.com/mc303/gin-rest-api-sample/api/v1/results"
 	"github.com/mc303/gin-rest-api-sample/api/v1/riders"
 	"github.com/mc303/gin-rest-api-sample/api/v1/runs"
-	"github.com/mc303/gin-rest-api-sample/api/v1/seasons"
 	"github.com/mc303/gin-rest-api-sample/api/v1/stages"
 )
 
@@ -25,13 +24,12 @@ func ApplyRoutes(r *gin.RouterGroup) {
 	{
 		v1.GET("/ping", ping)
 		//auth.ApplyRoutes(v1)
-		classes.ApplyRoutesClasses(v1)
+		categories.ApplyRoutesCategories(v1)
 		riders.ApplyRoutesRiders(v1)
 		events.ApplyRoutesEvents(v1)
 		runs.ApplyRoutesRuns(v1)
 		stages.ApplyRoutesStages(v1)
 		addresses.ApplyRoutesAddresses(v1)
-		seasons.ApplyRoutesSeasons(v1)
 		registereds.ApplyRoutesRegistereds(v1)
 		results.ApplyRoutesResults(v1)
 

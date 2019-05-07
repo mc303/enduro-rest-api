@@ -11,8 +11,8 @@ type User struct {
 	Username     string `gorm:"column:username;not null"`
 	PasswordHash string `gorm:"column:password;not null"`
 	DisplayName  string `gorm:"not null"`
-	// ID           uint   `gorm:"primary_key"`
-	// Access       uint `gorm:"not null"`
+	// ID           int   `gorm:"primary_key"`
+	// Access       int `gorm:"not null"`
 }
 
 // Serialize serializes post data

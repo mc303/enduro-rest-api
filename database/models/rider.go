@@ -9,7 +9,7 @@ import (
 // Rider data model
 type Rider struct {
 	// gorm.Model
-	ID          uint      `gorm:"primary_key"`
+	ID          int      `gorm:"primary_key"`
 	Firstname   string    `gorm:"not null"`
 	Lastname    string    `gorm:"not null"`
 	Gender      int       `gorm:"not null"`
@@ -18,7 +18,6 @@ type Rider struct {
 	Addresses   Address
 	Runs        []Run
 	Results     []Result
-	Stages      []Stage
 	Registereds []Registered
 }
 
@@ -34,6 +33,5 @@ func (p Rider) Serialize() common.JSON {
 		"Addresses": p.Addresses,
 		"Runs":      p.Runs,
 		"Results":   p.Results,
-		"Stages":    p.Stages,
 	}
 }

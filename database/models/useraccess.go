@@ -8,10 +8,10 @@ import (
 // UserAccess data model
 type UserAccess struct {
 	gorm.Model
-	SourceID uint
+	SourceID int
 	Role     string `gorm:"not null"`
-	// ID           uint   `gorm:"primary_key"`
-	// Access       uint `gorm:"not null"`
+	// ID           int   `gorm:"primary_key"`
+	// Access       int `gorm:"not null"`
 }
 
 // Serialize serializes post data

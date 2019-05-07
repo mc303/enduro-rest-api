@@ -22,6 +22,6 @@ func Initialize() (*gorm.DB, error) {
 	fmt.Println("Connected to database")
 	models.Drop(db)
 	models.Migrate(db)
-	// models.Create(db)
+	models.Create(db)
 	return db, err
 }
