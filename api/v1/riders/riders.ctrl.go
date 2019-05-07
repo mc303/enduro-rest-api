@@ -39,7 +39,7 @@ func list(c *gin.Context) {
 
 	var rider models.Rider
 	// SELECT * FROM riders
-	db.Debug().Find(&rider)
+	db.Find(&rider)
 
 	// Display JSON result
 	c.JSON(200, rider)
@@ -51,10 +51,15 @@ func read(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
 	var rider models.Rider
+	var run models.Run
+	var result models.Result
+	var address models.Address
 
 	// auto preloads the related model
 	// http://gorm.io/docs/preload.html#Auto-Preloading
-	if err := db.Debug().Set("gorm:auto_preload", true).Find(&rider, id).Error; err != nil {
+	// db.Debug().Set("gorm:auto_preload", true)
+
+	if err := db.Model(&rider).Related(&run).Related(&result).Related(&address).Related(&address).Find(&rider, id).Error; err != nil {
 		c.AbortWithStatus(404)
 		return
 	}

@@ -36,7 +36,7 @@ func list(c *gin.Context) {
 	var events []models.Event
 
 	// db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event)
-
+	// db.Model(&events).Related(&card)
 	if cursor == "" {
 		if err := db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&events).Error; err != nil {
 			c.AbortWithStatus(500)

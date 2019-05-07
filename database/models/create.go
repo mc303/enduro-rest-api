@@ -95,37 +95,37 @@ func Create(db *gorm.DB) {
 			Name:    "Stage 0001",
 			Order:   1,
 			EventID: 1,
-			RaceID:  0,
+			RaceID:  1,
 		},
 		{
 			Name:    "Stage 0002",
 			Order:   2,
 			EventID: 1,
-			RaceID:  0,
+			RaceID:  1,
 		},
 		{
 			Name:    "Stage 0003",
 			Order:   3,
 			EventID: 1,
-			RaceID:  0,
+			RaceID:  1,
 		},
 		{
 			Name:    "BB Stage 0001",
 			Order:   1,
 			EventID: 1,
-			RaceID:  1,
+			RaceID:  2,
 		},
 		{
 			Name:    "BB Stage 0002",
 			Order:   2,
 			EventID: 1,
-			RaceID:  1,
+			RaceID:  2,
 		},
 		{
 			Name:    "BB Stage 0003",
 			Order:   3,
 			EventID: 1,
-			RaceID:  1,
+			RaceID:  2,
 		},
 	}
 
