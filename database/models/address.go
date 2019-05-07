@@ -15,8 +15,8 @@ type Address struct {
 	Country      string
 	PlusCode     string
 	Coordinate   string
-	RidersID     uint
-	EventsID     uint
+	RiderID      uint
+	// EventsID     uint
 
 	// Runs    []Run  `gorm:"ForeignKey:RiderID;association_foreignkey:ID"`
 }
@@ -30,9 +30,9 @@ func (p Address) Serialize() common.JSON {
 		"PostalCode":   p.PostalCode,
 		"City":         p.City,
 		"Country":      p.Country,
-		"RidersID":     p.RidersID,
-		"EventsID":     p.EventsID,
 		"PlusCode":     p.PlusCode,
 		"Coordinate":   p.Coordinate,
+		"RiderID":      p.RiderID,
+		// "EventsID":     p.EventsID,
 	}
 }

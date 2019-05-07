@@ -12,7 +12,7 @@ type Run struct {
 	StartTime time.Time
 	EndTime   time.Time
 	DNF       bool
-	RidersID  uint
+	RiderID   uint
 	EventsID  uint
 	StagesID  uint
 }

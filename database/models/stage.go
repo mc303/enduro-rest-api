@@ -8,7 +8,7 @@ type Stage struct {
 	Name     string `gorm:"not null"`
 	Location string `gorm:"not null"`
 	Order    uint   `gorm:"not null"`
-	EventsID uint
+	EventID  uint
 	// Events   Event  `gorm:"ForeignKey:EventsID;association_foreignkey:ID"`
 
 }
@@ -20,6 +20,6 @@ func (p Stage) Serialize() common.JSON {
 		"Name":     p.Name,
 		"Location": p.Location,
 		"Oder":     p.Order,
-		"EventsID": p.EventsID,
+		"EventID":  p.EventID,
 	}
 }
