@@ -11,22 +11,6 @@ import (
 
 type JSON = common.JSON
 
-// func list(c *gin.Context) {
-// 	// Connection to the database
-// 	db := c.MustGet("db").(*gorm.DB)
-// 	// Close connection database
-// 	defer db.Close()
-
-// 	var event []models.Event
-// 	// db.Set("gorm:auto_preload", true).Find(&event)
-// 	// SELECT * FROM riders
-// 	// db.Find(&event)vTypeOfRace
-// 	db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event)
-
-// 	// Display JSON result
-// 	c.JSON(200, event)
-// }
-
 func list(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 
@@ -35,10 +19,10 @@ func list(c *gin.Context) {
 
 	var events []models.Event
 
-	// db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event)
+	// db.Preload("Stages").Preload("TypeOfRaces").Find(&event)
 	// db.Model(&events).Related(&card)
 	if cursor == "" {
-		if err := db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&events).Error; err != nil {
+		if err := db.Find(&events).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -47,7 +31,8 @@ func list(c *gin.Context) {
 		if recent == "1" {
 			condition = "id > ?"
 		}
-		if err := db.Debug().Preload("Stages").Preload("TypeOfRaces").Where(condition, cursor).Find(&events).Error; err != nil {
+		// db.Preload("Stages").Preload("TypeOfRaces").Where(condition, cursor).Find(&events)
+		if err := db.Where(condition, cursor).Find(&events).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -63,31 +48,6 @@ func list(c *gin.Context) {
 	c.JSON(200, serialized)
 }
 
-// func read(c *gin.Context) {
-// 	// Connection to the database
-// 	db := c.MustGet("db").(*gorm.DB)
-// 	// Close connection database
-// 	defer db.Close()
-
-// 	id := c.Params.ByName("id")
-
-// 	var event models.Event
-// 	// db.Set("gorm:auto_preload", true).Find(&event)
-// 	// db.Debug().Preload("Stages").Find(&event, id)
-
-// 	db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event, id)
-
-// 	if event.ID != 0 {
-// 		// Display JSON result
-// 		c.JSON(200, event)
-// 	} else {
-// 		// Display JSON error
-// 		c.JSON(404, gin.H{"error": "Event not found"})
-// 	}
-
-// 	// Invoke-RestMethod -Uri "http://127.0.0.1:8080/api/v1/event/2" -Method get | ConvertTo-Json
-// }
-
 func read(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
@@ -95,7 +55,7 @@ func read(c *gin.Context) {
 
 	// auto preloads the related model
 	// http://gorm.io/docs/preload.html#Auto-Preloading
-	if err := db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event, id).Error; err != nil {
+	if err := db.Find(&event, id).Error; err != nil {
 		c.AbortWithStatus(404)
 		return
 	}

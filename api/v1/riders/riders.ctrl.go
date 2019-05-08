@@ -38,18 +38,12 @@ func list(c *gin.Context) {
 
 	var riders []models.Rider
 
-	var rider models.Rider
-	var run models.Run
-	var result models.Result
-	var address models.Address
-	var registered models.Registered
-
-	// db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event)
+	// db.Preload("Stages").Preload("TypeOfRaces").Find(&event)
 	// db.Model(&events).Related(&card)
 	if cursor == "" {
 		// db.Model(&rider).Related(&run).Related(&result).Related(&address).Related(&registered)
 		// db.Preload("Runs").Preload("Results").Preload("Addresses").Preload("Registereds")
-		if err := db.Preload("Runs").Preload("Results").Preload("Addresses").Preload("Registereds").Find(&riders).Error; err != nil {
+		if err := db.Find(&riders).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -58,8 +52,8 @@ func list(c *gin.Context) {
 		if recent == "1" {
 			condition = "id > ?"
 		}
-		// db.Debug().Preload("Stages").Preload("TypeOfRaces").Where(condition, cursor)
-		if err := db.Model(&rider).Related(&run).Related(&result).Related(&address).Related(&registered).Where(condition, cursor).Find(&riders).Error; err != nil {
+		// db.Preload("Stages").Preload("TypeOfRaces").Where(condition, cursor)
+		if err := db.Where(condition, cursor).Find(&riders).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -75,23 +69,6 @@ func list(c *gin.Context) {
 	c.JSON(200, serialized)
 }
 
-// func list(c *gin.Context) {
-// 	// Connection to the database
-// 	db := c.MustGet("db").(*gorm.DB)
-// 	// db := InitDb()
-// 	// // Close connection database
-// 	// defer db.Close()
-
-// 	var rider models.Rider
-// 	// SELECT * FROM riders
-// 	db.Model(&rider).Related(&run).Related(&result).Related(&address).Related(&address).Find(&rider)
-
-// 	// Display JSON result
-// 	c.JSON(200, rider)
-
-// 	// curl -i http://localhost:8080/api/v1/users
-// }
-
 func read(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
@@ -103,49 +80,15 @@ func read(c *gin.Context) {
 
 	// auto preloads the related model
 	// http://gorm.io/docs/preload.html#Auto-Preloading
-	// db.Debug().Set("gorm:auto_preload", true)
+	// db.Set("gorm:auto_preload", true)
 
-	if err := db.Preload("Runs").Preload("Results").Preload("Addresses").Preload("Registereds").Find(&rider, id).Error; err != nil {
+	if err := db.Find(&rider, id).Error; err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
 
 	c.JSON(200, rider.Serialize())
 }
-
-// func read(c *gin.Context) {
-// 	// Connection to the database
-// 	// db := InitDb()
-// 	// // Close connection database
-// 	// defer db.Close()
-// 	db := c.MustGet("db").(*gorm.DB)
-
-// 	id := c.Params.ByName("id")
-// 	//cid := c.Params.ByName("class_name_id")
-
-// 	// cid := c.Params.ByName("card_id")
-// 	var rider models.Rider
-// 	db.debug().Set("gorm:auto_preload", true).Find(&rider, id)
-
-// 	// Pre-Load Class Example - Preload works
-// 	// Invoke-RestMethod -Uri "http://127.0.0.1:8080/api/v1/riders/3" -methode Get | ConvertFrom-Json
-// 	// SELECT * FROM "riders"  WHERE ("riders"."id" = '3')
-// 	// SELECT * FROM "classes"  WHERE ("id" IN ('2'))
-// 	// db.Debug().Preload("Class").Find(&rider, id)
-
-// 	// Test pre_load anabled for rider
-// 	// db.Set("gorm:auto_preload", true).Find(&rider)
-// 	db.Debug().Find(&rider, id)
-
-// 	if rider.ID != 0 {
-// 		// Display JSON result
-// 		c.JSON(200, rider)
-// 	} else {
-// 		// Display JSON error
-// 		c.JSON(404, gin.H{"error": "Rider not found"})
-// 	}
-// 	// Invoke-RestMethod -Uri "http://127.0.0.1:8080/api/v1/rider/1" -Method get | ConvertFrom-Json
-// }
 
 func update(c *gin.Context) {
 	// // Connection to the database
@@ -206,7 +149,7 @@ func remove(c *gin.Context) {
 
 	if rider.ID != 0 {
 		// DELETE FROM users WHERE id = user.Id
-		db.Debug().Delete(&rider)
+		db.Delete(&rider)
 		// Display JSON result
 		c.JSON(200, gin.H{"success": "Rider #" + id + " deleted"})
 	} else {

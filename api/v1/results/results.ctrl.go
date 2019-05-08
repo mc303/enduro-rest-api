@@ -7,20 +7,6 @@ import (
 	"github.com/mc303/gin-rest-api-sample/lib/common"
 )
 
-// type Result struct {
-// 	ID        uint
-// 	TotalTime time.Time
-// 	Riders    Rider `gorm:"ForeignKey:RidersID;association_foreignkey:ID"`
-// 	RidersID  uint
-// 	Events    Event `gorm:"ForeignKey:EventsID;association_foreignkey:ID"`
-// 	EventsID  uint
-// 	Seasons   Season `gorm:"ForeignKey:SeasonsID;association_foreignkey:ID"`
-// 	SeasonsID uint
-// 	Place     uint
-// }
-
-// type Rider = models.Rider
-
 type JSON = common.JSON
 
 func list(c *gin.Context) {
@@ -31,10 +17,10 @@ func list(c *gin.Context) {
 
 	var results []models.Result
 
-	// db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event)
-
+	// db.Preload("Stages").Preload("TypeOfRaces").Find(&event)
+	//  db.Preload("Events").Preload("Events.TypeOfRaces").Preload("Events.Stages").Preload("Riders").Preload("Seasons")
 	if cursor == "" {
-		if err := db.Preload("Events").Preload("Events.TypeOfRaces").Preload("Events.Stages").Preload("Riders").Preload("Seasons").Find(&results).Error; err != nil {
+		if err := db.Find(&results).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -43,7 +29,7 @@ func list(c *gin.Context) {
 		if recent == "1" {
 			condition = "id > ?"
 		}
-		if err := db.Preload("Events").Preload("Events.TypeOfRaces").Preload("Events.Stages").Preload("Riders").Preload("Seasons").Where(condition, cursor).Find(&results).Error; err != nil {
+		if err := db.Where(condition, cursor).Find(&results).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -66,7 +52,7 @@ func read(c *gin.Context) {
 
 	// auto preloads the related model
 	// http://gorm.io/docs/preload.html#Auto-Preloading
-	if err := db.Preload("Events").Preload("Riders").Find(&results, id).Error; err != nil {
+	if err := db.Find(&results, id).Error; err != nil {
 		c.AbortWithStatus(404)
 		return
 	}

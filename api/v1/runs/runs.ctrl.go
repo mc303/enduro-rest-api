@@ -12,44 +12,38 @@ import (
 type JSON = common.JSON
 
 func list(c *gin.Context) {
-	// Connection to the database
 	db := c.MustGet("db").(*gorm.DB)
 
-	// Close connection database
-	// defer db.Close()
+	cursor := c.Query("cursor")
+	recent := c.Query("recent")
 
-	var run []models.Run
-	// db.Set("gorm:auto_preload", true).Find(&event)
-	// SELECT * FROM riders
-	// db.Find(&event)
-	db.Debug().Preload("Riders.Class").Preload("Stages.Events").Find(&run)
+	var runs []models.Run
 
-	// Display JSON result
-	c.JSON(200, run)
+	if cursor == "" {
+		if err := db.Find(&runs).Error; err != nil {
+			c.AbortWithStatus(500)
+			return
+		}
+	} else {
+		condition := "id < ?"
+		if recent == "1" {
+			condition = "id > ?"
+		}
+		if err := db.Where(condition, cursor).Find(&runs).Error; err != nil {
+			c.AbortWithStatus(500)
+			return
+		}
+	}
+
+	length := len(runs)
+	serialized := make([]JSON, length, length)
+
+	for i := 0; i < length; i++ {
+		serialized[i] = runs[i].Serialize()
+	}
+
+	c.JSON(200, serialized)
 }
-
-// func read(c *gin.Context) {
-// 	// Connection to the database
-// 	db := c.MustGet("db").(*gorm.DB)
-// 	// Close connection database
-// 	// defer db.Close()
-
-// 	id := c.Params.ByName("id")
-
-// 	var run models.Run
-
-// 	db.Debug().Preload("Riders.Class").Preload("Stages.Events").Find(&run, id)
-
-// 	if run.ID != 0 {
-// 		// Display JSON result
-// 		c.JSON(200, run)
-// 	} else {
-// 		// Display JSON error
-// 		c.JSON(404, gin.H{"error": "Run not found"})
-// 	}
-
-// 	//
-// }
 
 func read(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
@@ -58,7 +52,7 @@ func read(c *gin.Context) {
 
 	// auto preloads the related model
 	// http://gorm.io/docs/preload.html#Auto-Preloading
-	if err := db.Debug().Preload("Riders.Class").Preload("Stages.Events").Find(&run, id).Error; err != nil {
+	if err := db.Find(&run, id).Error; err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
@@ -76,7 +70,7 @@ func readstage(c *gin.Context) {
 
 	var run []models.Run
 	//db.Set("gorm:auto_preload", true).Find(&stage)
-	db.Debug().Preload("Riders.Class").
+	db.Preload("Riders.Class").
 		Preload("Stages.Events").
 		Where("stages_id = ?", id).
 		Find(&run)
@@ -99,7 +93,7 @@ func readevent(c *gin.Context) {
 
 	var run []models.Run
 
-	db.Debug().Preload("Riders.Class").Joins("JOIN stages on runs.stages_id = stages.id").
+	db.Preload("Riders.Class").Joins("JOIN stages on runs.stages_id = stages.id").
 		Where("stages.events_id = ?", id).
 		Preload("Stages.Events").Find(&run)
 
@@ -119,7 +113,7 @@ func readrider(c *gin.Context) {
 
 	var run []models.Run
 	//db.Set("gorm:auto_preload", true).Find(&stage)
-	db.Debug().Preload("Riders.Class").
+	db.Preload("Riders.Class").
 		Preload("Stages.Events").
 		Where("riders_id = ?", id).
 		Find(&run)

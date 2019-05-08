@@ -1,4 +1,4 @@
-package stages
+package races
 
 import (
 	"github.com/gin-gonic/gin"
@@ -7,8 +7,7 @@ import (
 	"github.com/mc303/gin-rest-api-sample/lib/common"
 )
 
-// type Rider = models.Rider
-
+// JSON type
 type JSON = common.JSON
 
 func list(c *gin.Context) {
@@ -17,10 +16,12 @@ func list(c *gin.Context) {
 	cursor := c.Query("cursor")
 	recent := c.Query("recent")
 
-	var stages []models.Stage
+	var races []models.Race
+
+	// db.Preload("Stages").Preload("TypeOfRaces").Find(&event)
 
 	if cursor == "" {
-		if err := db.Find(&stages).Error; err != nil {
+		if err := db.Find(&races).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -29,24 +30,33 @@ func list(c *gin.Context) {
 		if recent == "1" {
 			condition = "id > ?"
 		}
-		if err := db.Where(condition, cursor).Find(&stages).Error; err != nil {
+		if err := db.Where(condition, cursor).Find(&races).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
 	}
+
+	length := len(races)
+	serialized := make([]JSON, length, length)
+
+	for i := 0; i < length; i++ {
+		serialized[i] = races[i].Serialize()
+	}
+
+	c.JSON(200, serialized)
 }
 
 func read(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
-	var stage models.Stage
+	var race models.Race
 
 	// auto preloads the related model
 	// http://gorm.io/docs/preload.html#Auto-Preloading
-	if err := db.Find(&stage, id).Error; err != nil {
+	if err := db.Find(&race, id).Error; err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
 
-	c.JSON(200, stage.Serialize())
+	c.JSON(200, race.Serialize())
 }

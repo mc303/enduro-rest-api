@@ -1,0 +1,5 @@
+{
+    "code-runner.executorMap": {
+        "go": "go run D:\\go-work\\src\\github.com\\mc303\\gin-rest-api-sample\\main.go"
+    }
+}

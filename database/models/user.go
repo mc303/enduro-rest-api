@@ -11,6 +11,7 @@ type User struct {
 	Username     string `gorm:"column:username;not null"`
 	PasswordHash string `gorm:"column:password;not null"`
 	DisplayName  string `gorm:"not null"`
+	UUID         string
 	// ID           int   `gorm:"primary_key"`
 	// Access       int `gorm:"not null"`
 }
@@ -22,6 +23,7 @@ func (p User) Serialize() common.JSON {
 		"Username":     p.Username,
 		"PasswordHash": p.PasswordHash,
 		"DisplayName":  p.DisplayName,
+		"UUID":         p.UUID,
 		"created_at":   p.CreatedAt,
 		// "Access":       p.Access,
 	}

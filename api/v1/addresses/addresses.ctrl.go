@@ -18,10 +18,10 @@ func list(c *gin.Context) {
 
 	var addresses []models.Address
 
-	// db.Debug().Preload("Stages").Preload("TypeOfRaces").Find(&event)
+	// db.Preload("Stages").Preload("TypeOfRaces").Find(&event)
 
 	if cursor == "" {
-		if err := db.Debug().Preload("Riders").Find(&addresses).Error; err != nil {
+		if err := db.Preload("Riders").Find(&addresses).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -30,7 +30,7 @@ func list(c *gin.Context) {
 		if recent == "1" {
 			condition = "id > ?"
 		}
-		if err := db.Debug().Preload("Riders").Where(condition, cursor).Find(&addresses).Error; err != nil {
+		if err := db.Preload("Riders").Where(condition, cursor).Find(&addresses).Error; err != nil {
 			c.AbortWithStatus(500)
 			return
 		}
@@ -53,7 +53,7 @@ func read(c *gin.Context) {
 
 	// auto preloads the related model
 	// http://gorm.io/docs/preload.html#Auto-Preloading
-	if err := db.Debug().Preload("Riders").Find(&address, id).Error; err != nil {
+	if err := db.Preload("Riders").Find(&address, id).Error; err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
