@@ -135,6 +135,39 @@ func Create(db *gorm.DB) {
 		}
 	}
 
+	address := []Address{
+		{
+			Street:       "De Weg",
+			StreetNumber: "1",
+			PostalCode:   "7777MM",
+			City:         "Venlo",
+			Country:      "Nederland",
+			EventID:      1,
+		},
+		{
+			Street:       "De Straat",
+			StreetNumber: "66",
+			PostalCode:   "2487 GA",
+			City:         "Utrecht",
+			Country:      "NL",
+			RiderID:      1,
+		},
+		{
+			Street:       "De Straatweg",
+			StreetNumber: "65",
+			PostalCode:   "3456 FR",
+			City:         "Rotterdam",
+			Country:      "Netherlands",
+			RiderID:      2,
+		},
+	}
+
+	for i := range address {
+		if err := db.Save(&address[i]).Error; err != nil {
+			log.Fatal(err)
+		}
+	}
+
 	// Db.Save(&c) //Saving one to one relationship
 	// Db.Save(&c2)
 	// Db.Save(&c3)
@@ -143,19 +176,21 @@ func Create(db *gorm.DB) {
 		{
 			Firstname: "John",
 			Lastname:  "Doe",
-			Gender:    2,
+			Gender:    1,
 			Mail:      "john.doe@gmail.com",
+			
+			// Address:	address[1],
 		},
 		{
 			Firstname: "Peter",
 			Lastname:  "Petersen",
-			Gender:    2,
+			Gender:    1,
 			Mail:      "peter.petersen@gmail.com",
 		},
 		{
 			Firstname: "Jane",
 			Lastname:  "Doe",
-			Gender:    2,
+			Gender:    1,
 			Mail:      "jane.doe@gmail.com",
 		},
 	}
@@ -172,76 +207,49 @@ func Create(db *gorm.DB) {
 		{StartTime: starttime,
 			EndTime: starttime.Add(time.Second * 32),
 			DNF:     false,
-			RiderID: 0,
-			StageID: 0,
+			RiderID: 1,
+			StageID: 1,
+			EventID: 1,
 		},
 		{StartTime: starttime,
 			EndTime: starttime.Add(time.Second * 33),
 			DNF:     false,
-			RiderID: 1,
-			StageID: 0,
+			RiderID: 2,
+			StageID: 1,
+			EventID: 1,
 		},
 		{StartTime: starttime,
 			EndTime: starttime.Add(time.Second * 34),
 			DNF:     false,
 			RiderID: 1,
-			StageID: 1,
+			StageID: 2,
+			EventID: 1,
 		},
 		{StartTime: starttime,
 			EndTime: starttime.Add(time.Second * 32),
 			DNF:     false,
-			RiderID: 0,
-			StageID: 1,
+			RiderID: 2,
+			StageID: 2,
+			EventID: 1,
 		},
 		{StartTime: starttime,
 			EndTime: starttime.Add(time.Second * 33),
 			DNF:     false,
 			RiderID: 1,
-			StageID: 2,
+			StageID: 3,
+			EventID: 1,
 		},
 		{StartTime: starttime,
 			EndTime: starttime.Add(time.Second * 35),
 			DNF:     false,
-			RiderID: 0,
-			StageID: 2,
+			RiderID: 2,
+			StageID: 3,
+			EventID: 1,
 		},
 	}
 
 	for i := range r {
 		if err := db.Save(&r[i]).Error; err != nil {
-			log.Fatal(err)
-		}
-	}
-
-	address := []Address{
-		{
-			Street:       "De Weg",
-			StreetNumber: "1",
-			PostalCode:   "7777MM",
-			City:         "Venlo",
-			Country:      "Nederland",
-			EventID:      1,
-		},
-		{
-			Street:       "De Straat",
-			StreetNumber: "66",
-			PostalCode:   "2487 GA",
-			City:         "Utrecht",
-			Country:      "NL",
-			RiderID:      0,
-		},
-		{
-			Street:       "De Straatweg",
-			StreetNumber: "65",
-			PostalCode:   "3456 FR",
-			City:         "Rotterdam",
-			Country:      "Netherlands",
-			RiderID:      0,
-		},
-	}
-
-	for i := range address {
-		if err := db.Save(&address[i]).Error; err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -259,14 +267,14 @@ func Create(db *gorm.DB) {
 	result := []Result{
 		{
 			TotalTime: time.Now(),
-			RiderID:   0,
-			EventID:   0,
+			RiderID:   1,
+			EventID:   1,
 			Place:     1,
 		},
 		{
 			TotalTime: time.Now(),
-			RiderID:   1,
-			EventID:   0,
+			RiderID:   2,
+			EventID:   1,
 			Place:     2,
 		},
 		// {
