@@ -9,8 +9,8 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/mc303/gin-rest-api-sample/database/models"
-	"github.com/mc303/gin-rest-api-sample/lib/common"
+	"github.com/mc303/enduro-rest-api/database/models"
+	"github.com/mc303/enduro-rest-api/lib/common"
 )
 
 var secretKey []byte

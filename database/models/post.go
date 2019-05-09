@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/mc303/gin-rest-api-sample/lib/common"
+	"github.com/mc303/enduro-rest-api/lib/common"
 )
 
 // Post data model

@@ -1,5 +1,8 @@
 {
     "code-runner.executorMap": {
-        "go": "go run D:\\go-work\\src\\github.com\\mc303\\gin-rest-api-sample\\main.go"
-    }
+        "go": "go run D:\\go-work\\src\\github.com\\mc303\\enduro-rest-api\\main.go"
+    },
+    "cSpell.words": [
+        "UUID"
+    ]
 }

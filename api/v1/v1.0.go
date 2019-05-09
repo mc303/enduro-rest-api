@@ -2,14 +2,14 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mc303/gin-rest-api-sample/api/v1/addresses"
-	"github.com/mc303/gin-rest-api-sample/api/v1/categories"
-	"github.com/mc303/gin-rest-api-sample/api/v1/events"
-	"github.com/mc303/gin-rest-api-sample/api/v1/registereds"
-	"github.com/mc303/gin-rest-api-sample/api/v1/results"
-	"github.com/mc303/gin-rest-api-sample/api/v1/riders"
-	"github.com/mc303/gin-rest-api-sample/api/v1/runs"
-	"github.com/mc303/gin-rest-api-sample/api/v1/stages"
+	"github.com/mc303/enduro-rest-api/api/v1/addresses"
+	"github.com/mc303/enduro-rest-api/api/v1/categories"
+	"github.com/mc303/enduro-rest-api/api/v1/events"
+	"github.com/mc303/enduro-rest-api/api/v1/registereds"
+	"github.com/mc303/enduro-rest-api/api/v1/results"
+	"github.com/mc303/enduro-rest-api/api/v1/riders"
+	"github.com/mc303/enduro-rest-api/api/v1/runs"
+	"github.com/mc303/enduro-rest-api/api/v1/stages"
 )
 
 func ping(c *gin.Context) {

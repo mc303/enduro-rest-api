@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	v1 "github.com/mc303/gin-rest-api-sample/api/v1"
+	v1 "github.com/mc303/enduro-rest-api/api/v1"
 )
 
 // ApplyRoutes applies router to gin Router

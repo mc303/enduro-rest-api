@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/mc303/gin-rest-api-sample/lib/common"
+	"github.com/mc303/enduro-rest-api/lib/common"
 )
 
 // Race data model

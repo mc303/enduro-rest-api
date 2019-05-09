@@ -6,12 +6,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/mc303/gin-rest-api-sample/database/models"
+	"github.com/mc303/enduro-rest-api/database/models"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"github.com/mc303/gin-rest-api-sample/lib/common"
+	"github.com/mc303/enduro-rest-api/lib/common"
 	"golang.org/x/crypto/bcrypt"
 )
 

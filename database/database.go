@@ -7,7 +7,7 @@ import (
 	"github.com/jinzhu/gorm"
 	// _ "github.com/jinzhu/gorm/dialects/mysql" // configures mysql driver
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/mc303/gin-rest-api-sample/database/models"
+	"github.com/mc303/enduro-rest-api/database/models"
 )
 
 // Initialize initializes the database

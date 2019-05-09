@@ -1,6 +1,6 @@
 package models
 
-import "github.com/mc303/gin-rest-api-sample/lib/common"
+import "github.com/mc303/enduro-rest-api/lib/common"
 
 // Discipline data model
 type Discipline struct {

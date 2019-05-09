@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/mc303/gin-rest-api-sample/api"
-	"github.com/mc303/gin-rest-api-sample/database"
+	"github.com/mc303/enduro-rest-api/api"
+	"github.com/mc303/enduro-rest-api/database"
 )
 
 func main() {
