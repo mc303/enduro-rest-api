@@ -178,7 +178,7 @@ func Create(db *gorm.DB) {
 			Lastname:  "Doe",
 			Gender:    1,
 			Mail:      "john.doe@gmail.com",
-			
+
 			// Address:	address[1],
 		},
 		{
