@@ -23,7 +23,7 @@ func main() {
 	app := gin.Default() // create gin app
 	app.Use(database.Cors())
 	app.Use(database.Inject(db))
-	//app.Use(middlewares.JWTMiddleware())
+	app.Use(middlewares.JWTMiddleware())
 	api.ApplyRoutes(app) // apply api router
 	app.Run(":" + port)  // listen to given port
 }
